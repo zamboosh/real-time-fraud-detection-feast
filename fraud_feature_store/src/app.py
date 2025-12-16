@@ -1,5 +1,5 @@
 # src/app.py
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from feast import FeatureStore
 import os

@@ -12,3 +12,8 @@ dependencies = [
     "redis>=7.1.0",
     "uvicorn>=0.34.0",
 ]
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.5.0",
+]
