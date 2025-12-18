@@ -148,4 +148,22 @@ To take this to production:
 2.  **Switch Offline Store:** Point to **BigQuery**, **Snowflake**, or **Redshift** instead of local parquet files.
 3.  **Automate Materialization:** Use Airflow or Dagster to run `feast materialize` jobs periodically, keeping online features fresh.
 
+## 🚀 Kubernetes Deployment
+
+This project includes a complete Helm chart for Kubernetes deployment:
+
+```bash
+# Install from GitHub Container Registry
+helm install fraud-detection oci://ghcr.io/zamboosh/fraud-detection-feast
+
+# Or install from local chart
+helm install fraud-detection ./chart/
+```
+
+See the [chart README](./chart/README.md) for detailed configuration options.
+
+**CI/CD Pipelines:**
+- **Docker**: Automatically builds and pushes images to Docker Hub on main branch
+- **Helm Chart**: Automatically publishes to GitHub Container Registry (GHCR)
+
 ---

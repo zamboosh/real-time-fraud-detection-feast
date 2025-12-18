@@ -1,0 +1,17 @@
+apiVersion: v2
+name: fraud-detection-feast
+description: A Helm chart for deploying the Real-Time Fraud Detection service with Feast
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+keywords:
+  - fraud-detection
+  - feast
+  - feature-store
+  - fastapi
+  - machine-learning
+maintainers:
+  - name: zamboosh
+home: https://github.com/zamboosh/real-time-fraud-detection-feast
+sources:
+  - https://github.com/zamboosh/real-time-fraud-detection-feast

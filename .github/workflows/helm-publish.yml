@@ -1,0 +1,50 @@
+name: Publish Helm Chart
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'chart/**'
+  release:
+    types: [published]
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  CHART_NAME: fraud-detection-feast
+
+jobs:
+  publish-chart:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: 'v3.13.0'
+
+      - name: Log in to GitHub Container Registry
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | helm registry login ${{ env.REGISTRY }} --username ${{ github.actor }} --password-stdin
+
+      - name: Package Helm chart
+        run: |
+          helm package chart/ --destination .
+
+      - name: Push Helm chart to GHCR
+        run: |
+          CHART_VERSION=$(grep '^version:' chart/Chart.yaml | awk '{print $2}')
+          helm push ${CHART_NAME}-${CHART_VERSION}.tgz oci://${{ env.REGISTRY }}/${{ github.repository_owner }}
+
+      - name: Chart published
+        run: |
+          CHART_VERSION=$(grep '^version:' chart/Chart.yaml | awk '{print $2}')
+          echo "✅ Chart published to: oci://${{ env.REGISTRY }}/${{ github.repository_owner }}/${CHART_NAME}:${CHART_VERSION}"
+          echo "📦 Install with: helm install fraud-detection oci://${{ env.REGISTRY }}/${{ github.repository_owner }}/${CHART_NAME} --version ${CHART_VERSION}"
