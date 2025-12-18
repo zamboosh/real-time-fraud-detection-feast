@@ -1072,8 +1072,10 @@ source = { virtual = "." }
 dependencies = [
     { name = "fastapi" },
     { name = "feast" },
+    { name = "numpy" },
     { name = "pandas" },
     { name = "pyarrow" },
+    { name = "pydantic" },
     { name = "redis" },
     { name = "uvicorn" },
 ]
@@ -1087,8 +1089,10 @@ dev = [
 requires-dist = [
     { name = "fastapi", specifier = ">=0.124.4" },
     { name = "feast", specifier = ">=0.57.0" },
+    { name = "numpy", specifier = ">=2.3.5" },
     { name = "pandas", specifier = ">=2.3.3" },
     { name = "pyarrow", specifier = ">=21.0.0" },
+    { name = "pydantic", specifier = ">=2.10.6" },
     { name = "redis", specifier = ">=7.1.0" },
     { name = "uvicorn", specifier = ">=0.34.0" },
 ]

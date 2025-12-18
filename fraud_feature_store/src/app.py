@@ -64,11 +64,20 @@ async def predict(user_data: UserIn):
             status_code=500, detail=f"Online Feature Store retrieval failed: {e}"
         )
 
+    # Check if user exists (has valid features)
+    avg_amount = online_features["avg_transaction_amount_7d"][0]
+    transaction_count = online_features["transaction_count_7d"][0]
+    
+    # Handle case where user doesn't exist in feature store
+    if avg_amount is None or transaction_count is None:
+        raise HTTPException(
+            status_code=404, 
+            detail=f"User {user_data.user_id} not found in feature store. No historical transaction data available."
+        )
+
     # 3. MOCK MODEL SCORING
     # In a real project, you would load your trained model here and score it.
     # For now, we'll just check if the average transaction amount is high.
-    avg_amount = online_features["avg_transaction_amount_7d"][0]
-
     is_fraud = avg_amount > 1000  # Simple mock fraud logic
 
     # 4. Return results
