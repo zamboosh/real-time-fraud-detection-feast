@@ -1,6 +1,7 @@
 # scripts/generate_data.py
 import pandas as pd
 import numpy as np
+import os
 from datetime import datetime, timedelta
 
 NUM_USERS = 5000
@@ -51,7 +52,5 @@ def generate_transaction_data():
 
 
 if __name__ == "__main__":
-    import os
-
     # Ensure all required libraries are installed before running (pandas, numpy, pyarrow)
     generate_transaction_data()

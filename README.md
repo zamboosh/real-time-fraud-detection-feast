@@ -134,6 +134,55 @@ curl -X 'POST' \
     *   `example_repo.py`: Python definitions of your features and data sources.
 *   `src/app.py`: The application logic consuming features.
 *   `scripts/`: Helper scripts for data generation.
+*   `tests/`: Comprehensive test suite for the application.
+
+## 🧪 Testing
+
+This project includes a comprehensive test suite to ensure code quality and reliability.
+
+### Running Tests
+
+```bash
+# Install dev dependencies
+cd fraud_feature_store
+uv sync --all-groups
+
+# Run all tests
+uv run pytest tests/ -v
+
+# Run tests with coverage
+uv run pytest tests/ --cov=src --cov=feature_repo --cov-report=term-missing
+
+# Run only unit tests
+uv run pytest tests/ -v -m unit
+
+# Run only integration tests
+uv run pytest tests/ -v -m integration
+```
+
+### Test Structure
+
+- **`tests/test_app.py`**: Unit tests for FastAPI endpoints
+  - Health check endpoint
+  - Prediction endpoint with various scenarios
+  - Error handling and edge cases
+  
+- **`tests/test_feature_store.py`**: Integration tests for Feast
+  - Entity definitions
+  - Feature view configurations
+  - Feature service definitions
+  
+- **`tests/test_generate_transactions.py`**: Data generation validation
+  - Schema validation
+  - Data type checks
+  - Value range verification
+
+### CI/CD Testing
+
+Tests run automatically on every push and pull request via GitHub Actions:
+- ✅ All tests must pass before Docker images are built
+- 📊 Coverage reports are generated and uploaded
+- 🔍 Both unit and integration tests are executed
 
 ## 🎓 MLOps Best Practices demonstrated here
 
